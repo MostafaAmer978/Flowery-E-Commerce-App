@@ -17,14 +17,14 @@ class AuthRepoImpl implements AuthRepo {
   AuthRepoImpl(this._authRemoteDataSource);
   @override
   Future<ApiResult<RegisterRespone>> register(RegisterBody request) async {
-    final bool isConnected =
-        await InternetConnectionChecker.instance.hasConnection;
-
-    if (!isConnected) {
-      return ApiErrorResult(
-        failure: Failure(errorMessage: AppConstants.noInternet),
-      );
-    }
+    // final bool isConnected =
+    //     await InternetConnectionChecker.instance.hasConnection;
+    //
+    // if (!isConnected) {
+    //   return ApiErrorResult(
+    //     failure: Failure(errorMessage: AppConstants.noInternet),
+    //   );
+    // }
     try {
       var respone = await _authRemoteDataSource.register(
         toRegisterBodyDTo(request),
