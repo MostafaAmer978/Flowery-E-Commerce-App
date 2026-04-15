@@ -18,7 +18,7 @@ class UploadPhotoResponse {
     return _$UploadPhotoResponseToJson(this);
   }
 
-  UploadPhotoEntity toEntity(){
+  UploadPhotoEntity toEntity() {
     return UploadPhotoEntity(message: message ?? "");
   }
 }

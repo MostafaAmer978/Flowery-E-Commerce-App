@@ -25,11 +25,10 @@ class DeliveryAddressCard extends StatelessWidget {
       onTap: onSelect,
       child: Container(
         height: 83.h,
-
-        padding: const EdgeInsets.all(12),
+        padding: REdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(12.r),
           boxShadow: [
             BoxShadow(
               color: Colors.grey.shade300,
@@ -40,36 +39,41 @@ class DeliveryAddressCard extends StatelessWidget {
         ),
         child: Row(
           children: [
-            const SizedBox(width: 8),
+            SizedBox(width: 8.w),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+
                 children: [
-                  Row(
-                    children: [
-                      Radio(
-                        value: true,
-                        groupValue: isSelected,
-                        onChanged: (_) => onSelect(),
-                        activeColor: Colors.pink,
-                      ),
-                      Text(
-                        title,
-                        style: Theme.of(context).textTheme.displayMedium!
-                            .copyWith(
-                              color: AppColors.black,
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w500,
-                            ),
-                      ),
-                    ],
+                  Expanded(
+                    child: Row(
+                      children: [
+                        Radio(
+                          value: true,
+                          groupValue: isSelected,
+                          onChanged: (_) => onSelect(),
+                          activeColor: AppColors.pink,
+                        ),
+                        Text(
+                          title,
+                          style: Theme.of(context).textTheme.displayMedium!
+                              .copyWith(
+                                color: AppColors.black,
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w500,
+                              ),
+                        ),
+                      ],
+                    ),
                   ),
-                  const SizedBox(height: 4),
-                  Text(
-                    subtitle,
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: AppColors.darkGrey.withValues(alpha: 0.7),
+
+                  Expanded(
+                    child: Text(
+                      subtitle,
+                      style: TextStyle(
+                        fontSize: 14.sp,
+                        color: AppColors.darkGrey.withValues(alpha: 0.7),
+                      ),
                     ),
                   ),
                 ],

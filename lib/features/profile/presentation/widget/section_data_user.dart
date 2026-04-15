@@ -74,7 +74,9 @@ class SectionDataUser extends StatelessWidget {
         CustomRow(
           firstIcon: const Icon(Icons.location_on_outlined),
           title: AppLocalizations.of(context)!.saved_address,
-          onPressed: () {},
+          onPressed: () {
+            context.pushNamed(AppRoutes.savedAddresses);
+          },
         ),
       ],
     );

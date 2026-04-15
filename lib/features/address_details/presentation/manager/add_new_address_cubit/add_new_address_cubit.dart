@@ -10,7 +10,6 @@ import 'package:flowers_ecommerce_app/features/address_details/presentation/mana
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-
 import '../../../domain/use_cases/get_cities_use_case.dart';
 
 @Singleton()
@@ -33,6 +32,8 @@ class AddressDetailsCubit extends Cubit<AddressDetailsState> {
   final TextEditingController phone = TextEditingController();
   final TextEditingController area = TextEditingController();
 
+  // var lang = getIt.get<SharedPrefHelper>().getData(key: Constants.languageCode);
+
   doIntent(AddressDetailsEvent event) {
     switch (event) {
       case AddNewAddressEvent():
@@ -43,6 +44,7 @@ class AddressDetailsCubit extends Cubit<AddressDetailsState> {
   }
 
   Future<void> _addNewAddress() async {
+    if (isClosed) return;
     emit(state.copyWith(isLoading: true, isSuccess: false, errorMsg: null));
     var response = await addNewAddressUseCase.invoke(
       AddNewAddressRequestEntity(
@@ -56,9 +58,11 @@ class AddressDetailsCubit extends Cubit<AddressDetailsState> {
     );
     switch (response) {
       case ApiSuccessResult<AddressesResponseEntity>():
+        if (isClosed) return;
         emit(state.copyWith(isLoading: false, isSuccess: true));
         break;
       case ApiErrorResult<AddressesResponseEntity>():
+        if (isClosed) return;
         emit(
           state.copyWith(
             isLoading: false,
@@ -79,6 +83,11 @@ class AddressDetailsCubit extends Cubit<AddressDetailsState> {
     var response = await getCitiesUseCase.invoke();
     switch (response) {
       case ApiSuccessResult<CitiesResponseEntity>():
+        // List<String> cities = response.data.data!
+        //     .map((area) => lang == Constants.enKey
+        //     ? (area.governorateNameEn ?? '')
+        //     : (area.governorateNameAr ?? ''))
+        //     .toList();
         List<String> cities = response.data.data!
             .map((city) => city.governorateNameEn ?? "")
             .toList();
@@ -98,6 +107,11 @@ class AddressDetailsCubit extends Cubit<AddressDetailsState> {
     var response = await getAreasUseCase.invoke();
     switch (response) {
       case ApiSuccessResult<AreaResponseEntity>():
+        // List<String> areas = response.data.data!
+        //     .map((area) => lang == Constants.enKey
+        //     ? (area.cityNameEn ?? '')
+        //     : (area.cityNameAr ?? ''))
+        //     .toList();
         List<String> areas = response.data.data!
             .map((area) => area.cityNameEn ?? "")
             .toList();

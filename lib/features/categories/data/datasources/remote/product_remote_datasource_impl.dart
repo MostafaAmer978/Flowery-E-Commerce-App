@@ -16,7 +16,9 @@ class GetAllProductsRemoteDatasourceImpl
   GetAllProductsRemoteDatasourceImpl({required this.apiServices});
 
   @override
-  Future<ApiResult<ProductResponseEntity>> getAllProducts(String? sortBy) async {
+  Future<ApiResult<ProductResponseEntity>> getAllProducts(
+    String? sortBy,
+  ) async {
     try {
       ProductResponse response = await apiServices.getAllProducts(sortBy);
       ProductResponseEntity responseEntity = response.toEntity();

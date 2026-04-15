@@ -8,7 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DialogImage extends StatelessWidget {
   final EditProfileCubit cubit;
-  const DialogImage({super.key,required this.cubit});
+  const DialogImage({super.key, required this.cubit});
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +27,17 @@ class DialogImage extends StatelessWidget {
                   cubit.doIntent(CameraPickerEvent());
                   Navigator.pop(context);
                 },
-                icon: Icon(Icons.camera_alt_outlined, size: 35.sp,color: AppColors.pink,),
+                icon: Icon(
+                  Icons.camera_alt_outlined,
+                  size: 35.sp,
+                  color: AppColors.pink,
+                ),
               ),
               horizontalSpace(5),
-              Text(AppLocalizations.of(context)!.camera,style: Theme.of(context).textTheme.displayMedium,),
+              Text(
+                AppLocalizations.of(context)!.camera,
+                style: Theme.of(context).textTheme.displayMedium,
+              ),
             ],
           ),
           Column(
@@ -42,10 +49,13 @@ class DialogImage extends StatelessWidget {
                   cubit.doIntent(GalleryPickerEvent());
                   Navigator.pop(context);
                 },
-                icon: Icon(Icons.photo, size: 35.sp,color: AppColors.pink,),
+                icon: Icon(Icons.photo, size: 35.sp, color: AppColors.pink),
               ),
               horizontalSpace(5),
-              Text(AppLocalizations.of(context)!.gallery,style: Theme.of(context).textTheme.displayMedium,),
+              Text(
+                AppLocalizations.of(context)!.gallery,
+                style: Theme.of(context).textTheme.displayMedium,
+              ),
             ],
           ),
         ],

@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:flowers_ecommerce_app/config/routing/routing_extensions.dart';
 import 'package:flowers_ecommerce_app/config/theme/colors.dart';
 import 'package:flowers_ecommerce_app/core/di/di.dart';
 import 'package:flowers_ecommerce_app/core/helpers/spacing.dart';
@@ -12,16 +12,16 @@ import 'package:flowers_ecommerce_app/features/edit_profile/presentation/cubit/e
 import 'package:flowers_ecommerce_app/features/edit_profile/presentation/widgets/gender_selection.dart';
 import 'package:flowers_ecommerce_app/features/edit_profile/presentation/widgets/image_picker.dart';
 import 'package:flowers_ecommerce_app/features/edit_profile/presentation/widgets/success_dialog.dart';
+import 'package:flowers_ecommerce_app/features/profile/domain/entities/user_entity.dart';
+import 'package:flowers_ecommerce_app/features/profile/presentation/view_model/profile_setting_cubit.dart';
+import 'package:flowers_ecommerce_app/features/profile/presentation/view_model/profile_setting_event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../profile/domain/entities/user_entity.dart';
-
 class EditProfileScreen extends StatefulWidget {
-  const EditProfileScreen({super.key, required this.userData});
-
-  final UserProfileEntity userData;
+  const EditProfileScreen({super.key, required this.userEntity});
+  final UserProfileEntity userEntity;
 
   @override
   State<EditProfileScreen> createState() => _EditProfileScreenState();
@@ -29,35 +29,47 @@ class EditProfileScreen extends StatefulWidget {
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
   EditProfileCubit editProfileCubit = getIt.get<EditProfileCubit>();
+  ProfileSettingCubit profileSettingCubit = getIt.get<ProfileSettingCubit>();
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   String? _selectedGender;
-  late TextEditingController firstNameController;
-  late TextEditingController lastNameController;
-  late TextEditingController emailController;
-  late TextEditingController phoneController;
-  late TextEditingController passwordController;
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   @override
   void initState() {
-    firstNameController = TextEditingController(
-      text: widget.userData.firstName,
-    );
-    lastNameController = TextEditingController(text: widget.userData.lastName);
-    emailController = TextEditingController(text: widget.userData.email);
-    phoneController = TextEditingController(text: widget.userData.phone);
-    passwordController = TextEditingController(text: "****************");
-    editProfileCubit.state.pickedImage = File("model");
+    firstNameController.text = widget.userEntity.firstName;
+    lastNameController.text = widget.userEntity.lastName;
+    emailController.text = widget.userEntity.email;
+    phoneController.text = widget.userEntity.phone.substring(2);
+    passwordController.text = '1111111111';
+    editProfileCubit.state.imageUrl = widget.userEntity.photo;
+    _selectedGender = widget.userEntity.gender;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => editProfileCubit,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => editProfileCubit),
+        BlocProvider(create: (context) => profileSettingCubit),
+      ],
       child: BlocConsumer<EditProfileCubit, EditProfileState>(
         listener: (context, state) {
+          // firstNameController.text =  state.userProfileEntity?.firstName??'';
+          // lastNameController.text =widget.userEntity.lastName;
+          // emailController.text = widget.userEntity.email;
+          // phoneController.text =
+          //     widget.userEntity.phone.substring(2);
+          // passwordController.text = '1111111111';
+          // editProfileCubit.state.imageUrl =
+          //     widget.userEntity.photo;
+          // _selectedGender = state.userProfileEntity?.gender;
           if (state.isSuccess) {
             showDialog(
               context: context,
@@ -71,10 +83,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           return Scaffold(
             appBar: AppBar(
               leading: IconButton(
-                icon: const Icon(Icons.keyboard_arrow_left),
                 onPressed: () {
-                  /// navigate to main profile
+                  context.pop();
                 },
+                icon: const Icon(Icons.arrow_back),
               ),
               scrolledUnderElevation: 0,
               elevation: 0,
@@ -171,7 +183,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       verticalSpace(24),
                       TextFormField(
                         controller: passwordController,
+                        obscureText: true,
                         readOnly: true,
+                        obscuringCharacter: "★",
                         decoration: InputDecoration(
                           suffixIcon: TextButton(
                             onPressed: () {
@@ -191,21 +205,27 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       ElevatedButton(
                         onPressed: () {
                           if (formKey.currentState!.validate()) {
-                            editProfileCubit.doIntent(
-                              UpdateProfileEvent(
-                                editProfileRequest: EditProfileRequest(
-                                  firstName: firstNameController.text,
-                                  lastName: lastNameController.text,
-                                  email: emailController.text,
-                                  phoneNumber: phoneController.text,
+                            Future.wait([
+                              editProfileCubit.doIntent(
+                                UpdateProfileEvent(
+                                  editProfileRequest: EditProfileRequest(
+                                    firstName: firstNameController.text,
+                                    lastName: lastNameController.text,
+                                    email: emailController.text,
+                                    phoneNumber: phoneController.text,
+                                  ),
                                 ),
                               ),
-                            );
-                            editProfileCubit.doIntent(
-                              UploadPhotoEvent(
-                                file: state.pickedImage ?? File(""),
+                              editProfileCubit.doIntent(
+                                UploadPhotoEvent(
+                                  file: state.pickedImage ?? File(""),
+                                ),
                               ),
-                            );
+                            ]).then((_) {
+                              profileSettingCubit.doIntent(
+                                SumitProflieSettingEvent(),
+                              );
+                            });
                           }
                         },
                         child: state.isLoading
@@ -229,15 +249,5 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   void _onGenderChanged(String? value) {
     setState(() => _selectedGender = value);
-  }
-
-  @override
-  void dispose() {
-    firstNameController.dispose();
-    lastNameController.dispose();
-    emailController.dispose();
-    phoneController.dispose();
-    passwordController.dispose();
-    super.dispose();
   }
 }

@@ -10,9 +10,12 @@ class EditProfileUseCase {
 
   EditProfileUseCase({required this.editProfileRepositoryContract});
 
-  Future<ApiResult<EditProfileResponseEntity>> call(EditProfileRequest editProfileRequest) async {
+  Future<ApiResult<EditProfileResponseEntity>> call(
+    EditProfileRequest editProfileRequest,
+  ) async {
     var result = await editProfileRepositoryContract.editProfile(
-        editProfileRequest);
+      editProfileRequest,
+    );
     return result;
   }
 }

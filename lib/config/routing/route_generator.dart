@@ -12,11 +12,11 @@ import 'package:flowers_ecommerce_app/features/categories/presentation/pages/cat
 import 'package:flowers_ecommerce_app/features/checkout/presentation/pages/checkout_page.dart';
 import 'package:flowers_ecommerce_app/features/edit_profile/presentation/pages/edit_profile_screen.dart';
 import 'package:flowers_ecommerce_app/features/home_screen/presentaion/pages/home_screen.dart';
+import 'package:flowers_ecommerce_app/features/map/presentation/pages/maps_screen.dart';
 import 'package:flowers_ecommerce_app/features/most_selling/presentation/pages/most_selling_page.dart';
 import 'package:flowers_ecommerce_app/features/notification/presentation/page/notification_screen.dart';
 import 'package:flowers_ecommerce_app/features/occasions/presentation/pages/occasions_screen.dart';
 import 'package:flowers_ecommerce_app/features/orders/presentation/pages/orders_page.dart';
-import 'package:flowers_ecommerce_app/features/payment/presentaion/page/success_screen.dart';
 import 'package:flowers_ecommerce_app/features/payment/presentaion/page/webvieww_screen.dart';
 import 'package:flowers_ecommerce_app/features/products_detalis/presentation/pages/product_details_page.dart';
 import 'package:flowers_ecommerce_app/features/profile/domain/entities/about_us_entity.dart';
@@ -24,11 +24,13 @@ import 'package:flowers_ecommerce_app/features/profile/domain/entities/term_enti
 import 'package:flowers_ecommerce_app/features/profile/presentation/pages/about_us_screen.dart';
 import 'package:flowers_ecommerce_app/features/profile/presentation/pages/profile_screen.dart';
 import 'package:flowers_ecommerce_app/features/profile/presentation/pages/terms_screen.dart';
+import 'package:flowers_ecommerce_app/features/saved_addresses/presentation/manager/user_addresses_cubit.dart';
 import 'package:flowers_ecommerce_app/features/saved_addresses/presentation/pages/user_addresses.dart';
 import 'package:flowers_ecommerce_app/features/search/presentation/pages/search_screen.dart';
+import 'package:flowers_ecommerce_app/features/track_order/presentaion/page/success_screen.dart';
+import 'package:flowers_ecommerce_app/features/track_order/presentaion/page/track_order_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../core/di/di.dart';
 import '../../core/utils/app_constants.dart';
 import '../../features/address_details/presentation/manager/add_new_address_cubit/add_new_address_event.dart';
@@ -106,7 +108,9 @@ class RouteGenerator {
       case AppRoutes.changePassword:
         return MaterialPageRoute(builder: (_) => const ChangePasswordScreen());
       case AppRoutes.successPayment:
-        return MaterialPageRoute(builder: (_) => const PaymentSuccessScreen());
+        return MaterialPageRoute(
+          builder: (_) => PaymentSuccessScreen(orderId: ''),
+        );
       case AppRoutes.webView:
         final url = settings.arguments as String;
         return MaterialPageRoute(builder: (_) => WebviewScreen(url: url));
@@ -121,19 +125,34 @@ class RouteGenerator {
       case AppRoutes.logout:
         return MaterialPageRoute(builder: (context) => const LogoutScreen());
 
+      case AppRoutes.trackOrder:
+        return MaterialPageRoute(
+          builder: (context) => const TrackOrderScreen(),
+        );
+
       case AppRoutes.editProfile:
         final args = settings.arguments as UserProfileEntity;
         return MaterialPageRoute(
-          builder: (context) => EditProfileScreen(userData: args),
+          builder: (context) => EditProfileScreen(userEntity: args),
         );
 
       case AppRoutes.savedAddresses:
-        return MaterialPageRoute(builder: (_) => const UserAddressesScreen());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => getIt<UserAddressesCubit>(),
+            child: const UserAddressesScreen(),
+          ),
+        );
+
       case AppRoutes.productDetails:
         final args = settings.arguments as String;
         return MaterialPageRoute(
           builder: (_) => ProductDetailsPage(productId: args),
         );
+
+      case AppRoutes.trackOrderMap:
+        return MaterialPageRoute(builder: (_) => DriverMapPage(orderId: ''));
+
       case AppRoutes.addressDetails:
         return MaterialPageRoute(
           builder: (context) => MultiBlocProvider(
@@ -152,6 +171,7 @@ class RouteGenerator {
             child: const AddressDetailsScreen(),
           ),
         );
+
       case AppRoutes.notification:
         return MaterialPageRoute(
           builder: (context) => const NotificationScreen(),

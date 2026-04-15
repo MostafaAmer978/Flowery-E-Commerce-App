@@ -30,7 +30,7 @@ class CartBlocBuilder extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(trans.some_thing_went_wrong),
+                    Text(trans.something_went_wrong),
                     verticalSpace(10),
                     Text(state.errorMessage),
                   ],
@@ -50,7 +50,7 @@ class CartBlocBuilder extends StatelessWidget {
             body: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [Text(trans.some_thing_went_wrong)],
+                children: [Text(trans.something_went_wrong)],
               ),
             ),
           );

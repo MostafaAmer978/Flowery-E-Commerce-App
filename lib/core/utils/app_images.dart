@@ -18,4 +18,12 @@ abstract class AppImages {
   static const String arrowDown = 'assets/svgs/arrow-down.svg';
 
   static const String imagePhoto = 'lib/core/utils/images/flowerImage.png';
+  static const String motorCycle = 'assets/svgs/Delivery Motorcycle.svg';
+  static const String logoBoy = 'assets/svgs/Delivery Boy.png';
+  static const String urlTemplate =
+      'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
+  static const String userAgentPackageName = 'com.example.tracking_app';
+  static const String whatsappIcon = 'assets/svgs/whatsapp.png';
+  static const String phoneIcon = 'assets/svgs/phone_icon.svg';
+  static const String car = 'assets/svgs/Car.svg';
 }

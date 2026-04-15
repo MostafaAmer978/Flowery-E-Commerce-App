@@ -11,7 +11,6 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'upload_photo_usecase_test.mocks.dart';
 
-
 @GenerateMocks([UploadPhotoRepoContract])
 void main() {
   late UploadPhotoUseCase uploadPhotoUseCase;

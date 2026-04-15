@@ -75,7 +75,6 @@ class AddressDetailsScreen extends StatelessWidget {
                       getIt<AddressDetailsCubit>().doIntent(
                         AddNewAddressEvent(),
                       );
-                      context.pop();
                     }
                   },
                   child: Text(localizations.save_address),

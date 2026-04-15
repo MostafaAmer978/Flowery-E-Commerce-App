@@ -4,6 +4,7 @@ import 'package:flowers_ecommerce_app/config/theme/colors.dart';
 import 'package:flowers_ecommerce_app/core/helpers/spacing.dart';
 import 'package:flowers_ecommerce_app/core/l10n/translations/app_localizations.dart';
 import 'package:flowers_ecommerce_app/features/orders/domin/entites/order.dart';
+import 'package:flowers_ecommerce_app/features/track_order/presentaion/page/success_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -17,7 +18,7 @@ class OrderCard extends StatelessWidget {
     var trans = AppLocalizations.of(context)!;
     return Container(
       width: double.infinity,
-      height: 130.h,
+      // REMOVE height: 130.h,
       decoration: BoxDecoration(
         border: Border.all(color: Colors.grey.shade300, width: 1.h),
         borderRadius: BorderRadius.circular(10.r),
@@ -25,6 +26,7 @@ class OrderCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start, // add this
           children: [
             Container(
               height: 109.h,
@@ -43,6 +45,7 @@ class OrderCard extends StatelessWidget {
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min, // add this to shrink vertically
                 children: [
                   verticalSpace(4.h),
                   Text(
@@ -61,7 +64,6 @@ class OrderCard extends StatelessWidget {
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-
                   Text(
                     orderItem.state == "completed"
                         ? '${trans.delivered_on} ${orderItem.updatedAt!.day}/${orderItem.updatedAt!.month}/${orderItem.updatedAt!.year}'
@@ -70,8 +72,7 @@ class OrderCard extends StatelessWidget {
                       color: Colors.grey.shade600,
                     ),
                   ),
-
-                  verticalSpace(14.h),
+                  verticalSpace(10.h),
                   SizedBox(
                     width: double.infinity,
                     height: 30.h,
@@ -82,6 +83,15 @@ class OrderCard extends StatelessWidget {
                             AppRoutes.productDetails,
                             arguments: orderItem.orderItems!.first.product!.id,
                           );
+                        } else if (orderItem.state == "pending") {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => PaymentSuccessScreen(
+                                orderId: orderItem.id ?? "",
+                              ),
+                            ),
+                          );
                         }
                       },
                       child: Text(
@@ -91,7 +101,6 @@ class OrderCard extends StatelessWidget {
                       ),
                     ),
                   ),
-                  verticalSpace(2.h),
                 ],
               ),
             ),

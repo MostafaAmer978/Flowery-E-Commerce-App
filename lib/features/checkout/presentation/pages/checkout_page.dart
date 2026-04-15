@@ -46,7 +46,7 @@ class _CheckoutView extends StatelessWidget {
       body: ListView(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             child: Row(
               children: [
                 Text(
@@ -99,6 +99,7 @@ class _CheckoutView extends StatelessWidget {
           customDivider(),
           verticalSpace(24.h),
           OrderSummarySection(userCart: userCart),
+          verticalSpace(24.h),
         ],
       ),
     );

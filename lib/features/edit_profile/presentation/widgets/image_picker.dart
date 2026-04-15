@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flowers_ecommerce_app/features/edit_profile/presentation/cubit/edit_profile_cubit.dart';
 import 'package:flowers_ecommerce_app/features/edit_profile/presentation/cubit/edit_profile_state.dart';
 import 'package:flutter/material.dart';
@@ -14,30 +16,31 @@ class ProfileImagePicker extends StatefulWidget {
 }
 
 class _ProfileImagePickerState extends State<ProfileImagePicker> {
-
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<EditProfileCubit,EditProfileState>(
+    return BlocBuilder<EditProfileCubit, EditProfileState>(
       builder: (context, state) {
         var cubit = context.read<EditProfileCubit>();
-       return Stack(
+        return Stack(
           alignment: Alignment.bottomRight,
           children: [
             CircleAvatar(
               radius: 40.r,
-              backgroundImage: state.pickedImage == null ? null : FileImage(state.pickedImage!),
-              child: state.pickedImage == null ? Icon(Icons.person, size: 30.sp) : null ,
+              backgroundImage: state.pickedImage == null
+                  ? NetworkImage(state.imageUrl!)
+                  : FileImage(File(state.pickedImage!.path)),
             ),
             InkWell(
-              onTap: (){
-               showDialog(
-                 context: context,
-                 builder: (_) => Dialog(
-                     shape: RoundedRectangleBorder(
-                       borderRadius: BorderRadiusGeometry.circular(15.r)
-                     ),
-                     child: DialogImage(cubit: cubit,)),
-               );
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (_) => Dialog(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadiusGeometry.circular(15.r),
+                    ),
+                    child: DialogImage(cubit: cubit),
+                  ),
+                );
               },
               child: Container(
                 padding: const EdgeInsets.all(3),

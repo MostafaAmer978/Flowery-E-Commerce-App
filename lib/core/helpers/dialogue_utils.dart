@@ -101,7 +101,12 @@ abstract class DialogueUtils {
       context: context,
       builder: (context) {
         return AlertDialog(
-          content: Text(message),
+          content: Text(
+            message,
+            style: Theme.of(
+              context,
+            ).textTheme.labelSmall!.copyWith(color: AppColors.pink),
+          ),
           title: Text(
             title ?? "",
             style: TextStyle(

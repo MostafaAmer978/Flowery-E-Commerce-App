@@ -86,34 +86,31 @@ void main() {
       expect: () => [
         cubit.state.copyWith(
           isGift: true,
-          selectedPaymentMethod: null,
-          giftStreet: null,
-          giftPhone: null,
-          giftCity: null,
+          selectedPaymentMethod: PaymentMethod.creditCard,
+          giftStreet: '',
+          giftPhone: '',
+          giftCity: '',
         ),
-
         cubit.state.copyWith(
           isGift: true,
           giftStreet: "Street X",
-          giftPhone: null,
-          giftCity: null,
-          selectedPaymentMethod: null,
+          giftPhone: '',
+          giftCity: '',
+          selectedPaymentMethod: PaymentMethod.creditCard,
         ),
-
         cubit.state.copyWith(
           isGift: true,
           giftStreet: "Street X",
           giftPhone: "0100000000",
-          giftCity: null,
-          selectedPaymentMethod: null,
+          giftCity: '',
+          selectedPaymentMethod: PaymentMethod.creditCard,
         ),
-
         cubit.state.copyWith(
           isGift: true,
           giftStreet: "Street X",
           giftPhone: "0100000000",
           giftCity: "Giza",
-          selectedPaymentMethod: null,
+          selectedPaymentMethod: PaymentMethod.creditCard,
         ),
       ],
     );

@@ -22,7 +22,9 @@ class UploadPhotoRemoteDataSourceImpl
       UploadPhotoEntity finalResponse = response.toEntity();
       return ApiSuccessResult<UploadPhotoEntity>(data: finalResponse);
     } catch (e) {
-      return ApiErrorResult<UploadPhotoEntity>(failure: Failure(errorMessage: e.toString(),));
+      return ApiErrorResult<UploadPhotoEntity>(
+        failure: Failure(errorMessage: e.toString()),
+      );
     }
   }
 }

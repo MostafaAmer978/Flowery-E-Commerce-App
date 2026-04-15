@@ -68,15 +68,19 @@ class PaymentMethodSection extends StatelessWidget {
             builder: (context, state) {
               return Column(
                 children: [
-                  PaymentMethodCard(
-                    title: trans.cash_on_delivery,
-                    isSelected:
-                        state.selectedPaymentMethod ==
-                        PaymentMethod.cashOnDelivery,
-                    onSelect: () => cubit.doIntent(
-                      const SelectPaymentMethod(PaymentMethod.cashOnDelivery),
-                    ),
-                  ),
+                  ?state.isGift
+                      ? null
+                      : PaymentMethodCard(
+                          title: trans.cash_on_delivery,
+                          isSelected:
+                              state.selectedPaymentMethod ==
+                              PaymentMethod.cashOnDelivery,
+                          onSelect: () => cubit.doIntent(
+                            const SelectPaymentMethod(
+                              PaymentMethod.cashOnDelivery,
+                            ),
+                          ),
+                        ),
                   SizedBox(height: 16.h),
                   PaymentMethodCard(
                     title: trans.credit_card,

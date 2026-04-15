@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:flowers_ecommerce_app/core/di/modules/token_interceptor.dart';
 import 'package:injectable/injectable.dart';
@@ -38,4 +39,8 @@ abstract class ExternalModules {
 
   @lazySingleton
   Location provideLocation() => Location();
+  @lazySingleton
+  FirebaseFirestore provideFirebaseFirestore() {
+    return FirebaseFirestore.instance;
+  }
 }

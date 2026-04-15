@@ -23,18 +23,30 @@ void main() {
   setUp(() {
     message = "message";
     user = UserDtoEntity();
-    editProfileRequest = EditProfileRequest(firstName: "firstName",email: "email",lastName: "lastName",phoneNumber: "phoneNumber");
+    editProfileRequest = EditProfileRequest(
+      firstName: "firstName",
+      email: "email",
+      lastName: "lastName",
+      phoneNumber: "phoneNumber",
+    );
     mockEditProfileRepositoryContract = MockEditProfileRepositoryContract();
-    editProfileResponseEntity = EditProfileResponseEntity(message: message, user: user);
+    editProfileResponseEntity = EditProfileResponseEntity(
+      message: message,
+      user: user,
+    );
     editProfileUseCase = EditProfileUseCase(
-      editProfileRepositoryContract: mockEditProfileRepositoryContract); });
+      editProfileRepositoryContract: mockEditProfileRepositoryContract,
+    );
+  });
 
   group("Test editProfileUseCase in Presentation_Layer", () {
     /// Success
     test("success case for editProfile with ApiSuccessResult", () async {
       // Arrange
 
-      var mockSuccessResult = ApiSuccessResult<EditProfileResponseEntity>(data: editProfileResponseEntity);
+      var mockSuccessResult = ApiSuccessResult<EditProfileResponseEntity>(
+        data: editProfileResponseEntity,
+      );
       provideDummy<ApiResult<EditProfileResponseEntity>>(mockSuccessResult);
 
       when(
@@ -42,14 +54,12 @@ void main() {
       ).thenAnswer((_) async => mockSuccessResult);
 
       // Act
-      var result =  await editProfileUseCase.call(
-        editProfileRequest,
-      );
+      var result = await editProfileUseCase.call(editProfileRequest);
       // Assert
 
       expect(result, isA<ApiSuccessResult<EditProfileResponseEntity>>());
       ApiSuccessResult<EditProfileResponseEntity> successResult =
-      result as ApiSuccessResult<EditProfileResponseEntity>;
+          result as ApiSuccessResult<EditProfileResponseEntity>;
       expect(
         successResult.data.user.id,
         equals(editProfileResponseEntity.user.id),
@@ -86,15 +96,12 @@ void main() {
       /// Assert
       expect(result, isA<ApiErrorResult<EditProfileResponseEntity>>());
       ApiErrorResult<EditProfileResponseEntity> errorResult =
-      result as ApiErrorResult<EditProfileResponseEntity>;
+          result as ApiErrorResult<EditProfileResponseEntity>;
       expect(errorResult.failure.errorMessage, equals(dioException.message));
 
       verify(
         mockEditProfileRepositoryContract.editProfile(editProfileRequest),
       ).called(1);
     });
-
   });
-
-
 }

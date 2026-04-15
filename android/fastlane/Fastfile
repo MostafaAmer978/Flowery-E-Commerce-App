@@ -23,10 +23,11 @@ platform :android do
     sh "flutter pub run build_runner build --delete-conflicting-outputs"
     sh "flutter build apk --flavor production --target lib/main.dart"
     firebase_app_distribution(
-    app: "1:13741399074:android:34c86d57247b04e3977e7b",
+    app: "1:653026383061:android:7a5aa025637492c3f9be5c",
     firebase_cli_token:ENV['FIREBASE_CLI_TOKEN'],
-    android_artifact_path:"../build/app/outputs/flutter-apk/app-production-release.apk",
-    groups: "team_test_app"
+    android_artifact_path: "../build/app/outputs/flutter-apk/app-production-release.apk",
+    groups: "Testers",
+    release_notes: "Auto-distributed via Fastlane"
   )
   end
 end

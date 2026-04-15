@@ -1,8 +1,10 @@
+import 'package:flowers_ecommerce_app/config/theme/colors.dart';
 import 'package:flowers_ecommerce_app/features/occasions/presentation/manager/occasions_cubit.dart';
 import 'package:flowers_ecommerce_app/features/occasions/presentation/manager/occasions_state.dart';
 import 'package:flowers_ecommerce_app/features/occasions/presentation/widgets/products_gridview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../manager/occasions_event.dart';
 
@@ -52,13 +54,25 @@ class _TabBarViewBlocBuilderState extends State<TabBarViewBlocBuilder>
     return BlocBuilder<OccasionsCubit, OccasionsState>(
       builder: (context, state) {
         if (state.isLoadingGetOccasion) {
-          return const Center(child: CircularProgressIndicator());
+          return Expanded(
+            child: const Center(child: CircularProgressIndicator()),
+          );
         } else if (state.errorGetOccasion != null) {
           return Center(
             child: Text(
               state.errorGetOccasion!,
               style: theme.textTheme.bodyLarge!.copyWith(
                 color: theme.colorScheme.error,
+              ),
+            ),
+          );
+        } else if (state.products.isEmpty) {
+          return Expanded(
+            child: Center(
+              child: Icon(
+                Icons.shopping_bag_outlined,
+                size: 80.sp,
+                color: AppColors.pink,
               ),
             ),
           );

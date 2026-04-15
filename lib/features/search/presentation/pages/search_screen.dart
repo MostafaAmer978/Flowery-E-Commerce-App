@@ -38,6 +38,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var trans = AppLocalizations.of(context)!;
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => searchCubit),
@@ -144,7 +145,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         },
                       );
                     }
-                    return const Center(child: Text("Something Went Wrong"));
+                    return Center(child: Text(trans.something_went_wrong));
                   },
                 ),
               ),

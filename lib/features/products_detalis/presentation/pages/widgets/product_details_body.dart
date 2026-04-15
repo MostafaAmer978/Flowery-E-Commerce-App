@@ -44,7 +44,7 @@ class _ProductDetailsBodyState extends State<ProductDetailsBody> {
               final isSuccess = cubit.state.isSucsses;
               if (isSuccess) {
                 ToastMessage.toastMsg(
-                  "Order Placed Success",
+                  trans.order_placed_success,
                   backgroundColor: AppColors.green,
                 );
               } else {

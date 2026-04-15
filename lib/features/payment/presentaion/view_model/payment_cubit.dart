@@ -11,7 +11,7 @@ import 'package:injectable/injectable.dart';
 class PaymentCubit extends Cubit<PaymentState> {
   final PaymentCardUseCase _paymentCardUseCase;
   final PaymentCashUseCase _paymentCashUseCase;
-
+  String? currentOrderId;
   PaymentCubit(this._paymentCardUseCase, this._paymentCashUseCase)
     : super(PaymentState());
   doIntent(PaymentEvent event) {

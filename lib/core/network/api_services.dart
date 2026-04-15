@@ -30,9 +30,9 @@ import 'package:flowers_ecommerce_app/features/cart/data/models/user_cart/user_c
 import 'package:flowers_ecommerce_app/features/home_screen/data/model/home_response_dto.dart';
 import 'package:flowers_ecommerce_app/features/categories/data/models/response/category_response.dart';
 import 'package:flowers_ecommerce_app/features/categories/data/models/response/product_response.dart';
+import 'package:flowers_ecommerce_app/features/track_order/data/model/response/vehicle_response_dto.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';
-
 import '../../features/auth/change_password/data/models/request/change_password_request_dto.dart';
 import '../../features/auth/change_password/data/models/response/change_password_response_dto.dart';
 import '../../features/saved_addresses/data/models/get_user_address_dto.dart';
@@ -84,9 +84,8 @@ abstract class ApiServices {
   @GET(ApiConstants.getSpecificOccasion)
   Future<OccasionsResponseDto> getOccasions();
 
-  @GET(ApiConstants.products)
-  Future<ProductResponse> getAllProducts(
-      @Query("sort") String? sortBy);
+  @GET(ApiConstants.product)
+  Future<ProductResponse> getAllProducts(@Query("sort") String? sortBy);
 
   @GET(ApiConstants.categories)
   Future<CategoryResponse> getAllCategory();
@@ -149,5 +148,10 @@ abstract class ApiServices {
   @GET(ApiConstants.products)
   Future<GetSpecificProductRespone> getSpecificProduct(
     @Path('productId') String productId,
+  );
+
+  @GET(ApiConstants.vehicles)
+  Future<VehicleResponseDto> getVehicleById(
+    @Path("vehicleId") String vehicleId,
   );
 }

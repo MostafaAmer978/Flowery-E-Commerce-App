@@ -9,9 +9,9 @@ class TokenInterceptor extends Interceptor {
   final TokenService tokenService = getIt.get<TokenService>();
   @override
   void onRequest(
-      RequestOptions options,
-      RequestInterceptorHandler handler,
-      ) async {
+    RequestOptions options,
+    RequestInterceptorHandler handler,
+  ) async {
     final String? token = await tokenService.getToken();
     if (token != null) {
       options.headers[AppConstants.authorization] = "Bearer $token";

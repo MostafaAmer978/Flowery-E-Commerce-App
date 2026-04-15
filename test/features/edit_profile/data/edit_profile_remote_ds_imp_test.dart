@@ -70,8 +70,9 @@ void main() {
     });
 
     /// ErrorDioException
-    test("ErrorDioException case for editProfile with ApiErrorResult",
-          () async {
+    test(
+      "ErrorDioException case for editProfile with ApiErrorResult",
+      () async {
         const String errorMessage = "Error message";
         final dioException = DioException(
           requestOptions: RequestOptions(),
@@ -79,21 +80,18 @@ void main() {
         );
 
         /// Arrange
-        when(
-          mockApiServices.editProfile(body),
-        ).thenThrow(dioException);
+        when(mockApiServices.editProfile(body)).thenThrow(dioException);
 
         /// Act
-        var result = await editProfileRemoteDataSourceImpl.editProfile(editProfileRequest);
+        var result = await editProfileRemoteDataSourceImpl.editProfile(
+          editProfileRequest,
+        );
 
         /// Assert
         expect(result, isA<ApiErrorResult<EditProfileResponseEntity>>());
         ApiErrorResult<EditProfileResponseEntity> errorResult =
-        result as ApiErrorResult<EditProfileResponseEntity>;
-        expect(
-          errorResult.failure.errorMessage,
-          equals(dioException.message),
-        );
+            result as ApiErrorResult<EditProfileResponseEntity>;
+        expect(errorResult.failure.errorMessage, equals(dioException.message));
 
         verify(mockApiServices.editProfile(body)).called(1);
       },

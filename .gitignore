@@ -72,3 +72,4 @@ lib/core/l10n/translations/**
 **/mock_*.dart
 **/*.mocks.dart
 test/feature/forget_password/data/reset_pass_remote_datasource_impl_test.mocks.dart
+android/firebase-service-account.json

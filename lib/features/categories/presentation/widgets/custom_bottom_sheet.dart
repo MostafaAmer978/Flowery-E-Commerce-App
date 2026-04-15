@@ -24,25 +24,25 @@ class CustomBottomSheet extends StatefulWidget {
 }
 
 class _CustomBottomSheetState extends State<CustomBottomSheet> {
-  Map<String, String> filterMap = {
-    'Lowest Price': 'priceAfterDiscount', // price (from low ==> high)
-    'Highest Price': '-priceAfterDiscount', // -price (from high ==> low)
-    'Biggest Discount': '-price', // -priceAfterDiscount (from high ==> low)
-    'Smallest Discount': 'price', // priceAfterDiscount (from low ==> high)
-    'Newest First': '-createdAt', // -priceAfterDiscount (from new ==> old)
-    'Oldest First': 'createdAt', // priceAfterDiscount (from old ==> new)
-  };
-
-  late List<String> filterList;
-
-  @override
-  void initState() {
-    filterList = filterMap.keys.toList();
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
+    Map<String, String> filterMap = {
+      '${AppLocalizations.of(context)?.lowest_price}':
+          'priceAfterDiscount', // price (from low ==> high)
+      '${AppLocalizations.of(context)?.highest_price}':
+          '-priceAfterDiscount', // -price (from high ==> low)
+      '${AppLocalizations.of(context)?.biggest_discount}':
+          '-price', // -priceAfterDiscount (from high ==> low)
+      '${AppLocalizations.of(context)?.smallest_discount}':
+          'price', // priceAfterDiscount (from low ==> high)
+      '${AppLocalizations.of(context)?.lowest_price}':
+          '-createdAt', // -priceAfterDiscount (from new ==> old)
+      '${AppLocalizations.of(context)?.newest_first}':
+          'createdAt', // priceAfterDiscount (from old ==> new)
+    };
+    late List<String> filterList;
+    filterList = filterMap.keys.toList();
+
     return BlocBuilder<CategoryCubit, CategoryState>(
       builder: (context, state) {
         final cubit = context.read<CategoryCubit>();

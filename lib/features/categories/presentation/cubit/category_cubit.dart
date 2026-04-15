@@ -41,7 +41,6 @@ class CategoryCubit extends Cubit<CategoryState> {
     emit(state.copyWith());
   }
 
-
   Future<void> _getAllCategories() async {
     emit(state.copyWith(isLoading: true));
     ApiResult<List<CategoryModel>> result = await getAllCategoryUseCase.call();

@@ -14,9 +14,8 @@ class UploadPhotoRepoImpl implements UploadPhotoRepoContract {
 
   @override
   Future<ApiResult<UploadPhotoEntity>> uploadPhoto(File file) async {
-    ApiResult<UploadPhotoEntity> result = await uploadPhotoRemoteDataSource.uploadPhoto(
-        file);
+    ApiResult<UploadPhotoEntity> result = await uploadPhotoRemoteDataSource
+        .uploadPhoto(file);
     return result;
   }
-
 }

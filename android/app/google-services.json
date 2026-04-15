@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "13741399074",
-    "project_id": "flowery-e-commerce-app-c4c0e",
-    "storage_bucket": "flowery-e-commerce-app-c4c0e.firebasestorage.app"
+    "project_number": "653026383061",
+    "project_id": "tracking-app-61dee",
+    "storage_bucket": "tracking-app-61dee.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:13741399074:android:34c86d57247b04e3977e7b",
+        "mobilesdk_app_id": "1:653026383061:android:7a5aa025637492c3f9be5c",
         "android_client_info": {
           "package_name": "com.example.flowers_ecommerce_app"
         }
@@ -15,7 +15,26 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBbLBzNvVZIQSgh9a9ZVbi9qdo29MvWkeE"
+          "current_key": "AIzaSyDD2afZ8jaTeqBiWWbumUYFB9dJXKJErvQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:653026383061:android:30d9469a242b44d3f9be5c",
+        "android_client_info": {
+          "package_name": "com.example.flowery_tracking_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDD2afZ8jaTeqBiWWbumUYFB9dJXKJErvQ"
         }
       ],
       "services": {

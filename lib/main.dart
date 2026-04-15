@@ -15,36 +15,39 @@ import 'core/l10n/translations/app_localizations.dart';
 import 'features/profile/presentation/view_model/profile_setting_state.dart';
 import 'firebase_options.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await ScreenUtil.ensureScreenSize();
+
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
   await configureDependencies();
 
+  final sharedPref = getIt<SharedPrefHelper>();
+
   final savedLocale =
-      getIt<SharedPrefHelper>().getData(key: Constants.languageCode)
-          as String? ??
+      sharedPref.getData(key: Constants.languageCode) as String? ??
       Constants.enKey;
+
+  final isRemember =
+      sharedPref.getData(key: Constants.isRemeber) as bool? ?? false;
 
   runApp(
     BlocProvider(
       create: (_) =>
           getIt<ProfileSettingCubit>()
             ..doIntent(ChangeLanguageEvent(savedLocale)),
-      child: const FlowersEcommerce(),
+      child: FlowersEcommerce(isRemember: isRemember),
     ),
   );
 }
 
 class FlowersEcommerce extends StatelessWidget {
-  const FlowersEcommerce({super.key});
+  final bool isRemember;
+  const FlowersEcommerce({super.key, required this.isRemember});
 
   @override
   Widget build(BuildContext context) {
-    final isRemember =
-        getIt<SharedPrefHelper>().getData(key: Constants.isRemeber) as bool? ??
-        false;
-
     return BlocBuilder<ProfileSettingCubit, ProfileSettingState>(
       builder: (context, state) {
         return ScreenUtilInit(
@@ -58,10 +61,7 @@ class FlowersEcommerce extends StatelessWidget {
               supportedLocales: AppLocalizations.supportedLocales,
               debugShowCheckedModeBanner: false,
               onGenerateRoute: RouteGenerator.getRoute,
-              initialRoute: //AppRoutes.login,
-              isRemember
-                  ? AppRoutes.mainLayout
-                  : AppRoutes.login,
+              initialRoute: isRemember ? AppRoutes.mainLayout : AppRoutes.login,
               theme: AppTheme.lightTheme,
             );
           },

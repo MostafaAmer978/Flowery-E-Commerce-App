@@ -8,6 +8,8 @@ class NotificationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        scrolledUnderElevation: 0,
+        surfaceTintColor: Colors.transparent,
         title: Text(AppLocalizations.of(context)!.notification),
         automaticallyImplyLeading: true,
       ),

@@ -39,6 +39,7 @@ class _ProfileSettingScreenState extends State<ProfileSettingScreen> {
   @override
   Widget build(BuildContext context) {
     var lang = AppLocalizations.of(context)!;
+    var cubit = context.read<ProfileSettingCubit>();
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -58,10 +59,14 @@ class _ProfileSettingScreenState extends State<ProfileSettingScreen> {
                     imageUrl: state.userProfileEntity?.photo ?? '',
                     userName: state.userProfileEntity?.firstName ?? '',
                     editTap: () {
-                      context.pushNamed(
-                        AppRoutes.editProfile,
-                        arguments: state.userProfileEntity,
-                      );
+                      context
+                          .pushNamed(
+                            AppRoutes.editProfile,
+                            arguments: state.userProfileEntity,
+                          )
+                          .then((_) {
+                            cubit.doIntent(SumitProflieSettingEvent());
+                          });
                     },
                   ),
                   const Divider(),
@@ -83,6 +88,7 @@ class _ProfileSettingScreenState extends State<ProfileSettingScreen> {
                       state.localizationCode == Constants.arKey
                           ? lang.arabic
                           : lang.english,
+                      style: Theme.of(context).textTheme.displayMedium,
                     ),
                     onPressed: () {
                       showModalBottomSheet(

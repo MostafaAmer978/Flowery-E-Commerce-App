@@ -120,7 +120,16 @@ class CheckoutCubit extends Cubit<CheckoutState> {
   }
 
   void toggleGift(bool value) {
-    emit(state.copyWith(isGift: value));
+    emit(
+      state.copyWith(
+        isGift: value,
+        selectedPaymentMethod: value ? PaymentMethod.creditCard : null,
+
+        giftStreet: '',
+        giftPhone: '',
+        giftCity: '',
+      ),
+    );
   }
 
   void updateGiftStreet(String name) {

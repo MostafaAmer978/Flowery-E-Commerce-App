@@ -1,7 +1,7 @@
 import 'package:flowers_ecommerce_app/config/routing/app_routes.dart';
 import 'package:flowers_ecommerce_app/config/routing/routing_extensions.dart';
+import 'package:flowers_ecommerce_app/core/utils/product_card.dart';
 import 'package:flowers_ecommerce_app/features/occasions/domain/entities/products_entity.dart';
-import 'package:flowers_ecommerce_app/features/occasions/presentation/widgets/product_cart.dart';
 import 'package:flutter/material.dart';
 
 class ProductsGridview extends StatelessWidget {
@@ -23,7 +23,13 @@ class ProductsGridview extends StatelessWidget {
           AppRoutes.productDetails,
           arguments: products[index].id,
         ),
-        child: ProductCart(product: products[index]),
+        child: ProductCard(
+          id: products[index].id ?? '',
+          title: products[index].title ?? '',
+          imageUrl: products[index].imgCover ?? '',
+          price: products[index].price ?? 0,
+          priceAfterDiscount: products[index].priceAfterDiscount ?? 0,
+        ),
       ),
     );
   }

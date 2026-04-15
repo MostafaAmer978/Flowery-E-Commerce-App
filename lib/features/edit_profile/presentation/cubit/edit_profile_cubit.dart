@@ -16,7 +16,8 @@ class EditProfileCubit extends Cubit<EditProfileState> {
   EditProfileUseCase editProfileUseCase;
   UploadPhotoUseCase uploadPhotoUseCase;
 
-  EditProfileCubit({required this.editProfileUseCase,
+  EditProfileCubit({
+    required this.editProfileUseCase,
     required this.uploadPhotoUseCase,
   }) : super(EditProfileState.initial());
 
@@ -38,7 +39,7 @@ class EditProfileCubit extends Cubit<EditProfileState> {
   }
 
   Future<void> _editProfile(EditProfileRequest editProfileRequest) async {
-    emit(state.copyWith(isLoading: true,isError: false,isSuccess: false));
+    emit(state.copyWith(isLoading: true, isError: false, isSuccess: false));
     var result = await editProfileUseCase.call(editProfileRequest);
     switch (result) {
       case ApiSuccessResult<EditProfileResponseEntity>():

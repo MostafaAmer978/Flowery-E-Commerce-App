@@ -1,5 +1,6 @@
 import 'package:flowers_ecommerce_app/config/theme/colors.dart';
 import 'package:flowers_ecommerce_app/core/helpers/spacing.dart';
+import 'package:flowers_ecommerce_app/core/l10n/translations/app_localizations.dart';
 import 'package:flowers_ecommerce_app/features/search/presentation/cubit/search_cubit.dart';
 import 'package:flowers_ecommerce_app/features/search/presentation/cubit/search_state.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ class ProductItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var trans = AppLocalizations.of(context)!;
     return BlocBuilder<SearchCubit, SearchState>(
       builder: (context, state) {
         return Container(
@@ -99,7 +101,7 @@ class ProductItem extends StatelessWidget {
                     final isSuccess = cubit.state.isSucsses;
                     if (isSuccess) {
                       ToastMessage.toastMsg(
-                        "Order Placed Success",
+                        trans.order_placed_success,
                         backgroundColor: AppColors.green,
                       );
                     } else {
@@ -113,7 +115,7 @@ class ProductItem extends StatelessWidget {
                     children: [
                       const Icon(Icons.shopping_cart_outlined),
                       horizontalSpace(8),
-                      const Text("Add to cart"),
+                      Text(trans.add_to_Cart),
                     ],
                   ),
                 ),

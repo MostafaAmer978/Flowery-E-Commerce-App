@@ -25,4 +25,6 @@ abstract class AppConstants {
   static const String bearer = "Bearer";
   static const String id = "id";
   static const String message = 'message';
+
+  static const String orderNotFound = 'Order not found';
 }

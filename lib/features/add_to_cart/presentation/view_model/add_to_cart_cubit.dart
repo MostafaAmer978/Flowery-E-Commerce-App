@@ -21,18 +21,34 @@ class AddToCartCubit extends Cubit<AddToCartState> {
   }
 
   Future<bool> _addProductToCart(String productId) async {
+    emit(
+      state.copyWith(
+        isLoading: true,
+        errorMsg: '',
+        loadingProductId: productId,
+      ),
+    );
     final result = await addProductToCartUsecase.invoke(
       AddProductBody(product: productId, quantity: 1),
     );
     switch (result) {
       case ApiSuccessResult():
-        emit(state.copyWith(isSucsses: true));
+        emit(
+          state.copyWith(
+            isSucsses: true,
+            isLoading: false,
+            errorMsg: '',
+            loadingProductId: null,
+          ),
+        );
         return true;
       case ApiErrorResult():
         emit(
           state.copyWith(
+            isLoading: false,
             isSucsses: false,
             errorMsg: result.failure.errorMessage,
+            loadingProductId: null,
           ),
         );
         return false;
