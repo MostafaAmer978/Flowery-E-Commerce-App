@@ -167,6 +167,28 @@ import '../../features/checkout/domin/usecase/get_logged_user_addresses_usecase.
     as _i390;
 import '../../features/checkout/presentation/view_model/cubit/checkout/checkout_cubit.dart'
     as _i1043;
+import '../../features/edit_profile/data/datasources/remote/edit_profile_remote_ds.dart'
+    as _i70;
+import '../../features/edit_profile/data/datasources/remote/edit_profile_remote_ds_imp.dart'
+    as _i1039;
+import '../../features/edit_profile/data/datasources/remote/upload_photo_remote_ds.dart'
+    as _i462;
+import '../../features/edit_profile/data/datasources/remote/upload_photo_remote_ds_impl.dart'
+    as _i686;
+import '../../features/edit_profile/data/repository_impl/edit_profile_repository_impl.dart'
+    as _i71;
+import '../../features/edit_profile/data/repository_impl/upload_photo_repo_impl.dart'
+    as _i693;
+import '../../features/edit_profile/domain/repository/edti_profile.dart'
+    as _i223;
+import '../../features/edit_profile/domain/repository/upload_photo_repo_contract.dart'
+    as _i90;
+import '../../features/edit_profile/domain/usecases/edit_profile_usecase.dart'
+    as _i894;
+import '../../features/edit_profile/domain/usecases/upload_photo_usecase.dart'
+    as _i26;
+import '../../features/edit_profile/presentation/cubit/edit_profile_cubit.dart'
+    as _i657;
 import '../../features/home_screen/data/data_sources/home_ds.dart' as _i635;
 import '../../features/home_screen/data/data_sources/home_ds_imp.dart' as _i58;
 import '../../features/home_screen/data/repositories/home_repo_imp.dart'
@@ -444,6 +466,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i975.AuthRepo>(
       () => _i990.AuthRepoImpl(gh<_i637.AuthRemoteDataSource>()),
     );
+    gh.factory<_i70.EditProfileRemoteDataSource>(
+      () => _i1039.EditProfileRemoteDataSourceImpl(
+        apiServices: gh<_i804.ApiServices>(),
+      ),
+    );
     gh.factory<_i217.ResetPasswordRemoteDataSource>(
       () => _i398.ResetPasswordRemoteDataSourceImpl(
         apiServices: gh<_i804.ApiServices>(),
@@ -452,6 +479,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i209.EmailVerifyRepoContract>(
       () => _i865.EmailVerifyRepoImpl(
         emailVerifyRemoteDataSource: gh<_i45.EmailVerifyRemoteDataSource>(),
+      ),
+    );
+    gh.factory<_i462.UploadPhotoRemoteDataSourceContract>(
+      () => _i686.UploadPhotoRemoteDataSourceImpl(
+        apiServices: gh<_i804.ApiServices>(),
       ),
     );
     gh.factory<_i984.AddToCartUsecase>(
@@ -570,6 +602,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i959.LoginBloc>(
       () => _i959.LoginBloc(gh<_i630.LoginUseCase>()),
     );
+    gh.factory<_i90.UploadPhotoRepoContract>(
+      () => _i693.UploadPhotoRepoImpl(
+        uploadPhotoRemoteDataSource:
+            gh<_i462.UploadPhotoRemoteDataSourceContract>(),
+      ),
+    );
     gh.factory<_i964.AddToCartCubit>(
       () => _i964.AddToCartCubit(gh<_i984.AddToCartUsecase>()),
     );
@@ -615,6 +653,11 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i197.PaymentCashUseCase>(),
       ),
     );
+    gh.factory<_i223.EditProfileRepositoryContract>(
+      () => _i71.EditProfileRepositoryImpl(
+        editProfileRemoteDataSource: gh<_i70.EditProfileRemoteDataSource>(),
+      ),
+    );
     gh.factory<_i664.DeleteCartUsecase>(
       () => _i664.DeleteCartUsecase(gh<_i1047.CartRepo>()),
     );
@@ -654,6 +697,12 @@ extension GetItInjectableX on _i174.GetIt {
             gh<_i573.GetAllProductsRepositoryContract>(),
       ),
     );
+    gh.factory<_i894.EditProfileUseCase>(
+      () => _i894.EditProfileUseCase(
+        editProfileRepositoryContract:
+            gh<_i223.EditProfileRepositoryContract>(),
+      ),
+    );
     gh.factory<_i341.HomeBloc>(() => _i341.HomeBloc(gh<_i294.HomeUseCase>()));
     gh.factory<_i444.RegisterCubit>(
       () => _i444.RegisterCubit(gh<_i752.RegisterUsecase>()),
@@ -661,8 +710,19 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i838.GetSpecificProductUsecase>(
       () => _i838.GetSpecificProductUsecase(gh<_i329.ProductsDetalisRepo>()),
     );
+    gh.factory<_i26.UploadPhotoUseCase>(
+      () => _i26.UploadPhotoUseCase(
+        uploadPhotoRepoContract: gh<_i90.UploadPhotoRepoContract>(),
+      ),
+    );
     gh.factory<_i116.LogoutCubit>(
       () => _i116.LogoutCubit(gh<_i386.LogoutUseCase>()),
+    );
+    gh.factory<_i657.EditProfileCubit>(
+      () => _i657.EditProfileCubit(
+        editProfileUseCase: gh<_i894.EditProfileUseCase>(),
+        uploadPhotoUseCase: gh<_i26.UploadPhotoUseCase>(),
+      ),
     );
     gh.factory<_i648.ForgetPasswordCubit>(
       () => _i648.ForgetPasswordCubit(

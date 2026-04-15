@@ -129,14 +129,14 @@ class MockGetAllProductsUseCase extends _i1.Mock
   );
 
   @override
-  _i5.Future<_i6.ApiResult<_i10.ProductResponseEntity>> call() =>
+  _i5.Future<_i6.ApiResult<_i10.ProductResponseEntity>> call(String? sortBy) =>
       (super.noSuchMethod(
-            Invocation.method(#call, []),
+            Invocation.method(#call, [sortBy]),
             returnValue:
                 _i5.Future<_i6.ApiResult<_i10.ProductResponseEntity>>.value(
                   _i8.dummyValue<_i6.ApiResult<_i10.ProductResponseEntity>>(
                     this,
-                    Invocation.method(#call, []),
+                    Invocation.method(#call, [sortBy]),
                   ),
                 ),
           )

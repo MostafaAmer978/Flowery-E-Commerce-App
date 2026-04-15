@@ -242,7 +242,28 @@ class AppLocalizationsEn extends AppLocalizations {
       'Password must be at least 6 characters';
 
   @override
-  String get passwords_do_not_match => 'Passwords Don\'t Match';
+  String get passwords_do_not_match => 'Passwords do not match';
+
+  @override
+  String get edit_profile => 'Edit Profile';
+
+  @override
+  String get change => 'Change';
+
+  @override
+  String get profile_updated_successfully => 'Profile updated successfully';
+
+  @override
+  String get gallery => 'Gallery';
+
+  @override
+  String get camera => 'Camera';
+
+  @override
+  String get first_name_is_required => 'First Name is required';
+
+  @override
+  String get last_name_is_required => 'Last Name is required';
 
   @override
   String get city => 'City';

@@ -558,8 +558,50 @@ abstract class AppLocalizations {
   /// No description provided for @passwords_do_not_match.
   ///
   /// In en, this message translates to:
-  /// **'Passwords Don\'t Match'**
+  /// **'Passwords do not match'**
   String get passwords_do_not_match;
+
+  /// No description provided for @edit_profile.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Profile'**
+  String get edit_profile;
+
+  /// No description provided for @change.
+  ///
+  /// In en, this message translates to:
+  /// **'Change'**
+  String get change;
+
+  /// No description provided for @profile_updated_successfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile updated successfully'**
+  String get profile_updated_successfully;
+
+  /// No description provided for @gallery.
+  ///
+  /// In en, this message translates to:
+  /// **'Gallery'**
+  String get gallery;
+
+  /// No description provided for @camera.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera'**
+  String get camera;
+
+  /// No description provided for @first_name_is_required.
+  ///
+  /// In en, this message translates to:
+  /// **'First Name is required'**
+  String get first_name_is_required;
+
+  /// No description provided for @last_name_is_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Last Name is required'**
+  String get last_name_is_required;
 
   /// No description provided for @city.
   ///
