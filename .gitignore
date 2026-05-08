@@ -24,7 +24,7 @@ migrate_working_dir/
 *.mocks.dart
 *.config.dart
 *.freezed.dart
-#*.lock
+*.lock
 android/firebase-service-account.json
 
 # The .vscode folder contains launch configuration and tasks you configure in
