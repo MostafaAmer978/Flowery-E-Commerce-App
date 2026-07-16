@@ -8,7 +8,7 @@ import 'package:flowers_ecommerce_app/features/auth/register/domin/entites/regis
 import 'package:flowers_ecommerce_app/features/auth/register/domin/entites/register_respone.dart';
 import 'package:flowers_ecommerce_app/features/auth/register/domin/repo/auth_repo.dart';
 import 'package:injectable/injectable.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
+// import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 @Injectable(as: AuthRepo)
 class AuthRepoImpl implements AuthRepo {
