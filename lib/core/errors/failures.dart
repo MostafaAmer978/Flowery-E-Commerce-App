@@ -41,6 +41,8 @@ class ServerFailure extends Failure {
         );
       case DioExceptionType.badResponse:
         return ServerFailure.fromResponse(dioException.response);
+      case DioExceptionType.transformTimeout:
+        throw UnimplementedError();
     }
   }
 
